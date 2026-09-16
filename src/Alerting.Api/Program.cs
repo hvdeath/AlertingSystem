@@ -1,4 +1,5 @@
 using System.Text;
+using Alerting.Infrastructure;
 using Alerting.Infrastructure.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -13,8 +14,18 @@ var builder = WebApplication.CreateBuilder(args);
 // JWT key (use secure storage in production)
 var jwtKey = builder.Configuration["Jwt:Key"] ?? "super-secret-key-change-this";
 
+var defaultConn = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseInMemoryDatabase("AlertingDb"));
+{
+    if (!string.IsNullOrWhiteSpace(defaultConn))
+    {
+        options.UseSqlite(defaultConn);
+    }
+    else
+    {
+        options.UseInMemoryDatabase("AlertingDb");
+    }
+});
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     {

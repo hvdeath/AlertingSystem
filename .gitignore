@@ -57,3 +57,6 @@ TestResult.xml
 nunit-*.xml
 /.vs
 /src/Nt.Demo.AwesomeWarehouse.WebApi/.vs
+
+# Local sqlite DB used for development
+src/Alerting.Api/alerting-dev.db
