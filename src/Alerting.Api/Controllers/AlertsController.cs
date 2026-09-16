@@ -60,7 +60,7 @@ namespace Alerting.Api.Controllers
             catch (Exception ex)
             {
                 System.Console.WriteLine("Create Exception: " + ex.ToString());
-                return Problem(detail: ex.ToString());
+                return Content(ex.ToString(), "text/plain");
             }
         }
 
