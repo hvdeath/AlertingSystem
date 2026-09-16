@@ -9,7 +9,7 @@ namespace Alerting.Domain.Entities
         private readonly List<Subscription> _subscriptions = new();
 
         public Guid Id { get; private set; }
-        public string Name { get; private set; }
+        public string Name { get; private set; } = null!;
         public bool IsActive { get; private set; }
         public IReadOnlyCollection<Subscription> Subscriptions => _subscriptions.AsReadOnly();
 

@@ -8,12 +8,12 @@ namespace Alerting.Domain.Entities
         public Guid Id { get; private set; }
 
         public Guid AlertRuleId { get; private set; }
-        public AlertRule AlertRule { get; private set; }
+        public AlertRule AlertRule { get; private set; } = null!;
 
         public Guid ChannelId { get; private set; }
-        public Channel Channel { get; private set; }
+        public Channel Channel { get; private set; } = null!;
 
-        public string Recipient { get; private set; }
+        public string Recipient { get; private set; } = null!;
         public bool IsEnabled { get; private set; }
 
         public Subscription(Guid id, AlertRule alertRule, Channel channel, string recipient, bool isEnabled = true)
