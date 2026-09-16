@@ -5,6 +5,7 @@ namespace Alerting.Domain.Entities
 {
     public class Channel
     {
+        protected Channel() { }
         private readonly List<Subscription> _subscriptions = new();
 
         public Guid Id { get; private set; }
