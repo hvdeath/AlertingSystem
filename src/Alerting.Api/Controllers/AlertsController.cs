@@ -42,24 +42,26 @@ namespace Alerting.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<AlertRuleDto>> Create([FromBody] CreateAlertRuleDto dto)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-
-            // Construct domain entity explicitly to avoid constructor-mapping edge cases
-            var entity = new AlertRule(Guid.NewGuid(), dto.Name, dto.IsActive);
-            _db.AlertRules.Add(entity);
             try
             {
+                if (!ModelState.IsValid) return BadRequest(ModelState);
+
+                // Log entry for diagnostics
+                System.Console.WriteLine("Create AlertRule invoked with Name='" + dto.Name + "'");
+
+                // Construct domain entity explicitly to avoid constructor-mapping edge cases
+                var entity = new AlertRule(Guid.NewGuid(), dto.Name, dto.IsActive);
+                _db.AlertRules.Add(entity);
                 await _db.SaveChangesAsync();
+
+                var result = _mapper.Map<AlertRuleDto>(entity);
+                return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
             }
             catch (Exception ex)
             {
-                // Log to console so test runner captures the full exception text
-                System.Console.WriteLine("SaveChanges Exception: " + ex.ToString());
+                System.Console.WriteLine("Create Exception: " + ex.ToString());
                 return Problem(detail: ex.ToString());
             }
-
-            var result = _mapper.Map<AlertRuleDto>(entity);
-            return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
         }
 
         [HttpPut("{id}")]
