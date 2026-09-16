@@ -1,5 +1,5 @@
 using System.Text;
-using Alerting.Infrastructure.Identity;
+using Alerting.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
