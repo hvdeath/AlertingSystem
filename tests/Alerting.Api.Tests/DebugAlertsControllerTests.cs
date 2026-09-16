@@ -5,6 +5,10 @@ using Alerting.Api.DTOs;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
 using Xunit.Abstractions;
+using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using Alerting.Infrastructure;
 
 namespace Alerting.Api.Tests
 {
