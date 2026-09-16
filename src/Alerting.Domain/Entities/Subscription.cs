@@ -4,6 +4,7 @@ namespace Alerting.Domain.Entities
 {
     public class Subscription
     {
+        protected Subscription() { }
         public Guid Id { get; private set; }
 
         public Guid AlertRuleId { get; private set; }

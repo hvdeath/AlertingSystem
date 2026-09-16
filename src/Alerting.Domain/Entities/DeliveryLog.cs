@@ -4,6 +4,7 @@ namespace Alerting.Domain.Entities
 {
     public class DeliveryLog
     {
+        protected DeliveryLog() { }
         public Guid Id { get; private set; }
         public Guid SubscriptionId { get; private set; }
         public Subscription Subscription { get; private set; }
