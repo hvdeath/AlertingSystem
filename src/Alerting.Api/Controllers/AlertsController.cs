@@ -47,7 +47,16 @@ namespace Alerting.Api.Controllers
             // Construct domain entity explicitly to avoid constructor-mapping edge cases
             var entity = new AlertRule(Guid.NewGuid(), dto.Name, dto.IsActive);
             _db.AlertRules.Add(entity);
-            await _db.SaveChangesAsync();
+            try
+            {
+                await _db.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                // Log to console so test runner captures the full exception text
+                System.Console.WriteLine("SaveChanges Exception: " + ex.ToString());
+                return Problem(detail: ex.ToString());
+            }
 
             var result = _mapper.Map<AlertRuleDto>(entity);
             return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
